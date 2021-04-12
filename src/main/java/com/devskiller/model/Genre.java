@@ -1,5 +1,12 @@
 package com.devskiller.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.checkerframework.checker.signature.qual.ClassGetName;
+
 public enum Genre {
 
 	FICTION,
@@ -11,6 +18,5 @@ public enum Genre {
 	ROMANTIC,
 	TECH,
 	TRAGEDY,
-	FANTASY
-
+	FANTASY;
 }

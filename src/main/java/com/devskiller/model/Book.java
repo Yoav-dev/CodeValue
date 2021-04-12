@@ -2,23 +2,56 @@ package com.devskiller.model;
 
 import java.util.Objects;
 
-public class Book {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
+@Entity
+public class Book {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
 	private final Author author;
 
+	@Column
 	private final String title;
 
+	@Column
 	private final String isbn;
 
+	@Transient
 	private final Genre genre;
 
+	@ManyToOne
+	private final GenreStr genreStr;
+	
+	public GenreStr getGenreStr() {
+		return genreStr;
+	}
+
+	@Column
 	private int rating;
 
+	public Book() {
+		this.author = null;
+		this.title = "";
+		this.isbn = "";
+		this.genre = null;
+		this.genreStr = new GenreStr();
+	}
+	
 	public Book(Author author, String title, String isbn, Genre genre) {
 		this.author = author;
 		this.title = title;
 		this.isbn = isbn;
 		this.genre = genre;
+		this.genreStr = new GenreStr(genre.name());
 	}
 
 	public Book(Author author, String title, String isbn, Genre genre, int rating) {
@@ -27,6 +60,7 @@ public class Book {
 		this.title = title;
 		this.isbn = isbn;
 		this.genre = genre;
+		this.genreStr = new GenreStr(genre.name());
 		this.rating = rating;
 	}
 

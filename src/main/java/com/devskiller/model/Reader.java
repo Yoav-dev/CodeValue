@@ -1,15 +1,43 @@
 package com.devskiller.model;
 
+import java.lang.reflect.Field;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.google.common.collect.Sets;
 
+@Entity
 public class Reader {
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
+	@OneToMany
 	private final Set<Book> favouriteBooks = Sets.newHashSet();
+	
+	@Transient
 	private final Set<Genre> favouriteGenres = Sets.newHashSet();
+	
+	@ManyToMany
+	private final Set<GenreStr> favouriteGenresStrs = Sets.newHashSet();
+	
+	@Column
 	private int age;
 
+	public Reader() {
+	}
+	
 	public Reader(int age) {
 		this.age = age;
 	}
